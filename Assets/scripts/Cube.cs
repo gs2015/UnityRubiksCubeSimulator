@@ -98,16 +98,7 @@ public class Cube : MonoBehaviour {
     {
         _isRotating = true;
 		mousePos = Input.mousePosition;
-
-		/*
-		int childCount = gameObject.transform.childCount;
-		for (int i = 0; i < childCount; i++) {
-			Transform child=gameObject.transform.GetChild (i);
-			if (child.gameObject.name.Equals ("R")) {
-				child.gameObject.GetComponent<Renderer> ().material.color = Color.red;
-			}
-		}
-*/
+ 
 			
 
        Debug.Log(pos+".");
