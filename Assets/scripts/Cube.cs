@@ -51,86 +51,34 @@ public class Cube : MonoBehaviour {
 		this.v3 = v3;
 	}
 
-    void Start()
-    {
-        _sensitivity = 0.4f;
-        _rotation = Vector3.zero;
+	public GameObject getLayer(){
+		return layer;
+	}
 
-         cubes = controller.getCubes();
-         rubkis = controller.getRubiks();
-         layer =controller.getLayer();
-		 center = controller.getCenter ();
+	public GameObject getRubiks(){
+		return rubkis;
+	}
 
+	public  List<GameObject>  getCubes(){
+		return cubes;	
+	}
+	public Vector3 getCenter(){
+		return center;
+	}
+
+
+    void Start() {
+
+		layer =controller.getLayer();
+		cubes = controller.getCubes();
+		rubkis = controller.getRubiks();
+		center = controller.getCenter ();
     }
 
-    float r_sum = 0;
-    void Update()
-    {
-        if (_isRotating)
-        {
-            _mouseOffset = (Input.mousePosition - mousePos);
-			_rotation.x = _mouseOffset.y * _sensitivity;
-			Vector3 lastPos = mousePos;
-			mousePos = Input.mousePosition;
-	//		Debug.Log ("lastPos:"+lastPos);
-	//		Debug.Log ("Pos:"+mousePos);
-
-
-
-			//思路：把所有需要旋转的块放到一个父物体中，旋转父物体
-            layer.transform.position = center;
-            layer.transform.parent= rubkis.transform;
-            foreach(GameObject o in cubes){
-                Vector3 v=o.GetComponent<Cube>().getPos();
-                if (v.x == pos.x) {
-                    o.transform.parent = layer.transform;
-                }
-            }
-            
-            layer.transform.Rotate(_rotation);
-            r_sum+=_rotation.x;
-           
-            
-        }
-    }
-
-    void OnMouseDown()
-    {
-        _isRotating = true;
-		mousePos = Input.mousePosition;
+    
+    void Update() {
  
-			
-
-       Debug.Log(pos+".");
-
     }
-
-    void OnMouseUp()
-    {
-        _isRotating = false;
-
-		if (r_sum > 0 && r_sum <= 20) {
-			layer.transform.Rotate (new Vector3 (-r_sum, 0, 0));
-		} else if (r_sum > 20 && r_sum <= 90) {
-			layer.transform.Rotate (new Vector3 (90 - r_sum, 0, 0));
-		} else if (r_sum > 90 && r_sum <= 180) {
-			layer.transform.Rotate (new Vector3 (180 - r_sum, 0, 0));
-		} else if (r_sum > -20 && r_sum <= 0) {
-			layer.transform.Rotate (new Vector3 (-r_sum, 0, 0));
-		} else if(r_sum>-90&&r_sum<-20){
-			layer.transform.Rotate(new Vector3(-90-r_sum,0,0));
-		} else if(r_sum>-180&&r_sum<=-90){
-			layer.transform.Rotate(new Vector3(-180-r_sum,0,0));
-		}
-
-        r_sum = 0;
-		foreach (GameObject o in cubes){
-            o.transform.parent = rubkis.transform;
-        }
-
-    }
-
-
 
     public bool isR(){
 		return getPos().x==v3.x-1;
