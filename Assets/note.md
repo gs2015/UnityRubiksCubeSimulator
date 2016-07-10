@@ -7,9 +7,10 @@
 >### 为方块不同面上色
 - 将一个方块分为6个GameObject，放到一个GameObject中 再分别上色
 - gameObject.GetComponent<Renderer> ().material.color = Color.red;
-- 遇到问题：如何判断哪个子物体被点击？
+
 >### 遍历GameObject中的子物体
--    int childCount = gameObject.transform.childCount;
--    foreach (GameObject child in gameObject)
+-    int childCount = gameObject.transform.childCount;<br/>
+     for (int i = 0; i < childCount; i++) <br/>
+	 Transform child=gameObject.transform.GetChild (i);
 >### 判断点到了方块的哪个面 
--
+-  将鼠标点击事件放到面的脚本中去处理
