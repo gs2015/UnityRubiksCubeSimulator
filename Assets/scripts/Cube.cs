@@ -21,6 +21,7 @@ public class Cube : MonoBehaviour {
 	private Vector3 _direction;
 
 
+    private GameObject cubePrefab;
 	//所有块的集合
 	private List<GameObject> cubes;
  
@@ -45,6 +46,7 @@ public class Cube : MonoBehaviour {
 		rubkis = controller.getRubiks ();
 		f = controller.getF ();
 		center = controller.getCenter ();
+        cubePrefab = controller.getCubePrefab();
 
 	}
 
@@ -58,6 +60,10 @@ public class Cube : MonoBehaviour {
 	public Vector3 getCenter () {
 		return center;
 	}
+
+    public GameObject getCubePrefab(){
+        return cubePrefab;
+    }
 
 	public float getF () {
 		return f;

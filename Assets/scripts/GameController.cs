@@ -5,7 +5,7 @@ public class GameController : MonoBehaviour {
 	
     public  Vector3 v3;
 
-    public GameObject cube;
+    public GameObject cubePrefab;
     //public Text txt;
     public GameObject rubiks;
     public GameObject layer;
@@ -53,6 +53,10 @@ public class GameController : MonoBehaviour {
         return center;
     }
 
+    public GameObject getCubePrefab () {
+        return cubePrefab;
+    }
+
     public List<GameObject> getCubes () {
         return cubes;
     }
@@ -76,7 +80,7 @@ public class GameController : MonoBehaviour {
     }
 
     private void initCube (Vector3 v) {
-        GameObject cubeObject = Instantiate (this.cube);
+        GameObject cubeObject = Instantiate (this.cubePrefab);
         cubeObject.transform.parent = rubiks.transform;
         cubeObject.gameObject.transform.position = new Vector3 (v.x * f, v.y * f, v.z * f);
         cubeObject.name = "(" + v.x + "," + v.y + "," + v.z + ")";
@@ -166,19 +170,28 @@ public class GameController : MonoBehaviour {
         return flag;
     }
 
+
     private Vector3 calcRubiksCenter () {
 
         Vector3 maxPos = cubes [0].GetComponent<Cube> ().getPos ();
         Vector3 minPos = cubes [cubes.Count - 1].GetComponent<Cube> ().getPos ();
-        float delta = cube.transform.GetChild (0).GetComponent<Renderer> ().bounds.size.x / 2;
-        return new Vector3 ((
-            maxPos.x * f + minPos.x * f) / 2 + delta, 
-            (maxPos.y * f + minPos.y * f) / 2 + delta,
-            (maxPos.z * f + minPos.z * f) / 2 + delta
-        );
+
+        float width = cubePrefab.GetComponentInChildren<Renderer> ().bounds.size.x ;
+
+      //  GameObject c = Instantiate (cubePrefab);
+
+        Vector3 center = new Vector3 (
+                                (maxPos.x  + minPos.x * f) / 2 + width, 
+                                (maxPos.y  + minPos.y * f) / 2 + width,
+                                (maxPos.z  + minPos.z * f) / 2 + width
+                            );
+
+       // c.transform.position = center;
+        return center;
 
 		 
     }
+
 
 
  	
